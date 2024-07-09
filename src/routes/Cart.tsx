@@ -1,6 +1,5 @@
 // Cart.tsx
 import React, { useEffect } from "react";
-import { CartItem } from "@/components/CartItem";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { useCart } from "@/hooks/useCart";
@@ -12,6 +11,7 @@ import { useClickAway } from "@uidotdev/usehooks";
 import { ArrowLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { EmptyCartMsg } from "@/components/EmptyCartMsg";
+import { CartItem } from "@/components/CartItem";
 
 export const Cart: React.FC = () => {
   const navigate = useNavigate();

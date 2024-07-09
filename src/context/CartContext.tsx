@@ -16,8 +16,8 @@ type CartState = {
 };
 
 type CartAction = {
-  type: "ADD_TO_CART" | "REMOVE_FROM_CART";
-  product: Product;
+  type: "ADD_TO_CART" | "REMOVE_FROM_CART" | "RESET_CART";
+  product?: Product; // Make product optional
 };
 
 const initialState: CartState = {
@@ -29,8 +29,10 @@ const initialState: CartState = {
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case "ADD_TO_CART": {
+      if (!action.product) return state;
+
       const existingItemIndex = state.items.findIndex(
-        (item) => item.id === action.product.id
+        (item) => item.id === action.product?.id
       );
 
       if (existingItemIndex !== -1) {
@@ -49,8 +51,10 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     }
 
     case "REMOVE_FROM_CART": {
+      if (!action.product) return state;
+
       const updatedItems = state.items.filter(
-        (item) => item.id !== action.product.id
+        (item) => item.id !== action.product?.id
       );
 
       return {
@@ -59,6 +63,12 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         totalNumber: state.totalNumber - 1,
         totalPrice:
           state.totalPrice - parseFloat(action.product.price.replace("N", "")),
+      };
+    }
+
+    case "RESET_CART": {
+      return {
+        ...initialState,
       };
     }
 

@@ -6,6 +6,7 @@ import { TextInputField } from "./TextInputField";
 import { SuccessModal } from "../SuccessModal";
 import { useToggle } from "@uidotdev/usehooks";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "@/hooks/useCart";
 
 export const PaymentForm = ({
   className,
@@ -13,7 +14,8 @@ export const PaymentForm = ({
 }: {
   className?: string;
   inverse?: boolean;
-}) => {
+  }) => {
+  const { dispatch} =useCart()
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Submitted");
@@ -27,6 +29,7 @@ export const PaymentForm = ({
   const closeModal = () => {
     toggle(false);
     navigate("/");
+    dispatch({type: "RESET_CART"})
   };
 
   return (

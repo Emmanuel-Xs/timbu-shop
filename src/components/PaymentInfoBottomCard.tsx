@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { PaymentForm } from "./PaymentForm";
 import { useClickAway } from "@uidotdev/usehooks";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
 interface PaymentInfoBottomCardProps {
   on: boolean;
@@ -44,6 +45,11 @@ export const PaymentInfoBottomCard: React.FC<PaymentInfoBottomCardProps> = ({
           on ? "-translate-y-0" : "-translate-y-full"
         )}
       >
+        <X
+          className="absolute top-7 right-7 text-primary cursor-pointer"
+          size={30}
+          onClick={closeBottomNav}
+        />
         <PaymentForm inverse />
       </aside>
     </section>

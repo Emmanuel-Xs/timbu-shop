@@ -1,6 +1,5 @@
 // Checkout.tsx
 import React, { useEffect } from "react";
-import { CartItem } from "@/components/CartItem";
 import { Header } from "@/components/Header";
 import { PaymentInfoBottomCard } from "@/components/PaymentInfoBottomCard";
 import { PaymentInfoCard } from "@/components/PaymentInfoCard";
@@ -11,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
 import { EmptyCartMsg } from "@/components/EmptyCartMsg";
+import { CartItem } from "@/components/CartItem";
 
 export const Checkout: React.FC = () => {
   const navigate = useNavigate();
