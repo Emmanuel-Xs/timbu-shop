@@ -5,6 +5,7 @@ type RadioInputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   id: string;
   label: string;
+  inverse?: boolean;
 };
 
 export const RadioInputField: React.FC<RadioInputFieldProps> = ({
@@ -12,6 +13,7 @@ export const RadioInputField: React.FC<RadioInputFieldProps> = ({
   name,
   id,
   label,
+  inverse,
   ...props
 }) => {
   return (
@@ -21,7 +23,7 @@ export const RadioInputField: React.FC<RadioInputFieldProps> = ({
         name={name}
         id={id}
         value={label}
-        className="accent-secondary"
+        className={cn(inverse ? "accent-primary" : "accent-secondary")}
         {...props}
       />
       <label htmlFor={id} className="text-lg font-semibold">

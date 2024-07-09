@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "cva";
 import { forwardRef } from "react";
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors disabled:cursor-not-allowed  disabled:opacity-50",
   {
     variants: {
       variant: {

@@ -44,7 +44,7 @@ export const PaymentInfoBottomCard: React.FC<PaymentInfoBottomCardProps> = ({
           on ? "-translate-y-0" : "-translate-y-full"
         )}
       >
-        <PaymentForm />
+        <PaymentForm inverse />
       </aside>
     </section>
   );

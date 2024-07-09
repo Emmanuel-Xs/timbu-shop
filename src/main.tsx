@@ -11,10 +11,12 @@ import "./index.css";
 import { Home } from "./routes/Home";
 import { Checkout } from "./routes/Checkout";
 import { Cart } from "./routes/Cart";
+import { CartProvider } from "./context/CartContext";
+import { NotFound } from "./routes/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
+    <Route errorElement={<NotFound />}>
       <Route path="/" element={<Home />}>
         <Route path="cart" element={<Cart />} />
       </Route>
@@ -25,6 +27,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   </React.StrictMode>
 );

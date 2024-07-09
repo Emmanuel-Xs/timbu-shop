@@ -11,12 +11,7 @@ export const Products = () => {
         </h3>
         <div className="grid grid-cols-1 min-[500px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 place-items-center gap-10">
           {ProductInfo.map((product, index) => (
-            <ProductCard
-              key={index}
-              name={product.name}
-              price={product.price}
-              img={product.image}
-            />
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </Container>

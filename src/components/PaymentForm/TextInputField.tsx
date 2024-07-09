@@ -5,6 +5,7 @@ type TextInputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   id: string;
   placeholder: string;
+  inverse?: boolean;
 };
 
 export const TextInputField: React.FC<TextInputFieldProps> = ({
@@ -12,18 +13,24 @@ export const TextInputField: React.FC<TextInputFieldProps> = ({
   label,
   id,
   placeholder,
+  inverse,
   ...props
 }) => {
   return (
     <div className={cn("space-y-2 mt-6", className)}>
-      <label htmlFor={id} className="text-sm lg:text-lg">
+      <label htmlFor={id} className="text-sm lg:text-lg font-medium">
         {label}
       </label>
       <input
         type="text"
         placeholder={placeholder}
         id={id}
-        className="w-full py-2 text-secondary accent-secondary"
+        className={cn(
+          "w-full py-2",
+          inverse
+            ? "text-primary accent-primary"
+            : "text-secondary accent-secondary"
+        )}
         {...props}
       />
     </div>

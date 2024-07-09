@@ -1,21 +1,24 @@
+// Cart.tsx
+import React, { useEffect } from "react";
 import { CartItem } from "@/components/CartItem";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { ProductInfo } from "@/data/Product";
+import { useCart } from "@/hooks/useCart";
 import { useCartToggle } from "@/hooks/useCartToggle";
 import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
 import { useScrollbarWidth } from "@/hooks/useScrollbarWidth";
 import { cn } from "@/lib/utils";
 import { useClickAway } from "@uidotdev/usehooks";
 import { ArrowLeftIcon } from "lucide-react";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { EmptyCartMsg } from "@/components/EmptyCartMsg";
 
-export const Cart = () => {
+export const Cart: React.FC = () => {
   const navigate = useNavigate();
   const { on, toggle } = useCartToggle();
   const scrollbarWidth = useScrollbarWidth();
   useLockBodyScroll(on, scrollbarWidth);
+  const { state } = useCart();
 
   const closeCart = () => {
     toggle(false);
@@ -54,43 +57,46 @@ export const Cart = () => {
               <h1 className="mr-auto ml-2 font-medium text-xl lg:text-2xl">
                 My Cart
               </h1>
-              <p>3 items</p>
+              <p>
+                <span>{state.totalNumber}</span> items
+              </p>
             </div>
-            <div className="divide-y-[1px] divide-border border-y border-border">
-              {ProductInfo.map((product, index) => (
-                <CartItem
-                  key={index}
-                  name={product.name}
-                  price={product.price}
-                  img={product.image}
-                />
-              ))}
-            </div>
+            {state.items.length === 0 ? (
+              <EmptyCartMsg />
+            ) : (
+              <div className="divide-y-[1px] divide-border border-y border-border">
+                {state.items.map((product, index) => (
+                  <CartItem key={index} product={product} />
+                ))}
+              </div>
+            )}
           </Container>
         </div>
-        <Container className="space-y-3 sticky bottom-0 bg-secondary w-full py-5">
-          <p className="text-center mb-5">
-            Subtotal of items in cart = <span>N7500</span>
-          </p>
-          <div className="flex gap-4 items-center justify-center">
-            <Button
-              className="rounded-3xl text-sm  py-[0.4rem]"
-              onClick={closeCart}
-              variant="outline"
-            >
-              Continue shopping
-            </Button>
-            <Button
-              className="rounded-3xl text-sm py-[0.4rem]"
-              onClick={() => {
-                navigate("/checkout");
-                toggle(false);
-              }}
-            >
-              Checkout
-            </Button>
-          </div>
-        </Container>
+        {state.items.length > 0 && (
+          <Container className="space-y-3 sticky bottom-0 bg-secondary w-full py-5">
+            <p className="text-center mb-5">
+              Subtotal of items in cart = <span>N{state.totalPrice}</span>
+            </p>
+            <div className="flex gap-4 items-center justify-center">
+              <Button
+                className="rounded-3xl text-sm  py-[0.4rem]"
+                onClick={closeCart}
+                variant="outline"
+              >
+                Continue shopping
+              </Button>
+              <Button
+                className="rounded-3xl text-sm py-[0.4rem]"
+                onClick={() => {
+                  navigate("/checkout");
+                  toggle(false);
+                }}
+              >
+                Checkout
+              </Button>
+            </div>
+          </Container>
+        )}
       </aside>
     </section>
   );
